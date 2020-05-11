@@ -141,7 +141,7 @@ public:
     //=======================================================
     //constructor & destructor
 
-    Worker(int comper_num, string local_disk_path = "buffered_tasks", string report_path = "report")
+    Worker(int comper_num, string local_disk_path = "/opt/hadoop/dfs/yan_share/buffered_tasks", string report_path = "report")
     {
     	num_compers = comper_num;
     	TASK_DISK_BUFFER_DIR = local_disk_path;
