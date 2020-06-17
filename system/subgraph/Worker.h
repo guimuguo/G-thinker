@@ -141,7 +141,7 @@ public:
     //=======================================================
     //constructor & destructor
 
-    Worker(int comper_num, string local_disk_path = "/opt/hadoop/dfs/yan_share/buffered_tasks", string report_path = "report")
+    Worker(int comper_num, string local_disk_path = "/opt/hadoop/dfs/yan_share/buffered_tasks", string report_path = "/opt/hadoop/dfs/yan_share/report")
     {
     	num_compers = comper_num;
     	TASK_DISK_BUFFER_DIR = local_disk_path;
@@ -554,7 +554,7 @@ public:
 			//------
 			priority_queue<max_heap_entry> max_heap;
 			priority_queue<min_heap_entry> min_heap;
-			avg_num = accumulate(remain_vec.begin(), remain_vec.end(), 0)/remain_vec.size();
+			avg_num = ceil((float)accumulate(remain_vec.begin(), remain_vec.end(), 0)/remain_vec.size());
 			for(int i=0; i<_num_workers; i++)
 			{
 				if(remain_vec[i] > avg_num)

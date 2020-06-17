@@ -78,6 +78,15 @@ class CliqueComper:public Comper<QCliqueTask>
 {
 public:
 
+	//check whether task is bigtask
+	virtual bool is_bigtask(QCliqueTask * task){
+		if(task->context.cand_id_vec.size() > DIVIDE_SIZE_THRESHOLD
+				||task->to_pull.size() > DIVIDE_SIZE_THRESHOLD)
+			return true;
+		else
+			return false;
+	}
+
 	virtual bool task_spawn(VertexT * v)
 	{
 		bool result = false;
@@ -96,7 +105,7 @@ public:
 			QCVertex root_v;
 			root_v.id = vid;
 			t->subG.addVertex(root_v);//edges are not added until now
-			result = t->is_bigtask();
+			result = is_bigtask(t);
 			add_task(t);
 		}
 		return result;
