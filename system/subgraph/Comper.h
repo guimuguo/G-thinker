@@ -197,7 +197,7 @@ public:
 			int len_temp_vv = temp_verVec.size();
 			int i=0;
 			for(; i<len_temp_vv; i++)
-			{//call UDF to spawn tasks
+			{//call UDF to spawn tasks, if it is a bigTask, it will stop spawn.
 				if(task_spawn(temp_verVec[i])){
 					i++;
 					break;

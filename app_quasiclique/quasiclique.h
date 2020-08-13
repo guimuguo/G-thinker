@@ -341,7 +341,7 @@ do {
 					vector<QCVertex*> new_cand_temp;
 					for (int k = 0; k < new_cand_size; k++) {
 						QCVertex* v = new_cand[k];
-						if (intersection.find(v->id) != intersection.end())
+						if (intersection.find(v->id) == intersection.end())
 							new_cand_temp.push_back(v);
 					}
 					new_cand.swap(new_cand_temp);
