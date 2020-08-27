@@ -146,7 +146,7 @@ void expand(vector<CliqueVertex> & vertexes, vector<int> & N, VSet & Q, VSet & Q
 			{
 				CliqueVertex & v = vertexes[i];
 				if(nbs_set.find(v.id) != nbs_set.end()) Rp_pts.push_back(&v);
-            }
+			}
 			if(!Rp_pts.empty())
 			{
 				vector<CliqueVertex> Rp;
