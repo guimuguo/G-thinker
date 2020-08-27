@@ -133,9 +133,9 @@ void expand(vector<CliqueVertex> & vertexes, vector<int> & N, VSet & Q, VSet & Q
 {
 	while(!vertexes.empty())
 	{
-       	CliqueVertex & p = vertexes.back(); //***
 		if(Q.size() + N.back() > Qmax.size())
 		{
+			CliqueVertex & p = vertexes.back(); //***
 			Q.insert(p.id);
 			vector<CliqueVertex *> Rp_pts;
             //compute Rp = vertexes intersects nbs(p)
@@ -157,9 +157,11 @@ void expand(vector<CliqueVertex> & vertexes, vector<int> & N, VSet & Q, VSet & Q
 			}
             else if(Q.size() > Qmax.size()) Qmax = Q;
 			Q.erase(p.id);
+
+			vertexes.pop_back(); //***
+			N.pop_back();
 		}
-        vertexes.pop_back(); //***
-        N.pop_back();
+		else return;
 	}
 }
 

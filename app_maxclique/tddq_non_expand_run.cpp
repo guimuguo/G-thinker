@@ -249,9 +249,9 @@ public:
 	{
 		while(!vertexes.empty())
 		{
-			CliqueVertex & p = vertexes.back(); //***
 			if(Q.size() + N.back() > Qmax.size())
 			{
+				CliqueVertex & p = vertexes.back(); //***
 				Q.insert(p.id);
 				vector<CliqueVertex *> Rp_pts; //new search space
 				//compute Rp = vertexes intersects nbs(p)
@@ -269,7 +269,7 @@ public:
 					nbs_prune(Rp_pts, Rp);
 					vector<int> colorN;
 					color_sort(Rp, colorN);
-					if(Q.size() + Rp.size() > Qmax.size()) // check before expand
+					if(Q.size() + colorN.back() > Qmax.size()) // check before expand
 					{
 						auto end = chrono::steady_clock::now();
 						float exe_time = (float)chrono::duration_cast<chrono::milliseconds>(end - init_time).count()/1000.0;
@@ -289,9 +289,9 @@ public:
 				}
 				else if(Q.size() > Qmax.size()) Qmax = Q;
 				Q.erase(p.id);
-			}
-			vertexes.pop_back(); //***
-			N.pop_back();
+				vertexes.pop_back(); //***
+				N.pop_back();
+			} else return;
 		}
 	}
 
