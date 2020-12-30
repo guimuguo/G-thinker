@@ -878,7 +878,7 @@ public:
 			vertex_stack.push(vertexes[i]);
 		}
 
-		vertexes.clear();
+//		vertexes.clear();
 
 		//ReqQueue already set, by Worker::cache_table
 		//>> by this time, ReqQueue occupies about 0.3% CPU
