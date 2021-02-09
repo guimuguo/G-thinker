@@ -472,31 +472,42 @@ public:
 
 	void add_bigTask(TaskT * task)
 	{
-		unique_lock<mutex> lck(bigtask_que_lock);
+		vector<TaskT *> bigTask_vec;
+		char temp_fname[1000];
+
 		TaskQueue& btq = q_bigtask();
+		bigtask_que_lock.lock();
 		//get the ref of global big task queue
 		if(btq.size() == BIG_TASK_QUEUE_CAPACITY){
-			//@@@@@
-			//cout<<"!!!!!!save the file"<<endl;
 			set_bigTask_fname();
-			ifbinstream bigTask_out(fname);
+			strcpy(temp_fname,fname);
 			int i = 0;
 			while(i < BIG_TASK_FLUSH_BATCH)
 			{
 				//get task at the tail
-				TaskT * t = btq.back();
+				bigTask_vec.push_back(btq.back());
 				btq.pop_back();
-				//stream to file
-				bigTask_out << t;
-				//release from memory
-				delete t;
 				i++;
 			}
-			bigTask_out.close();
 			global_bigTask_fileList.enqueue(fname);
 			global_bigTask_file_num ++;
 		}
 		btq.push_back(task);
+		bigtask_que_lock.unlock();
+
+		if(!bigTask_vec.empty())
+		{
+			ifbinstream bigTask_out(temp_fname);
+			for (int i = 0; i < bigTask_vec.size(); i++)
+			{
+				TaskT * t = bigTask_vec[i];
+				//stream to file
+				bigTask_out << t;
+				//release from memory
+				delete t;
+			}
+			bigTask_out.close();
+		}
 	}
 
 	//load bigtasks from a file (from "global_bigTask_fileList" to the task queue)
