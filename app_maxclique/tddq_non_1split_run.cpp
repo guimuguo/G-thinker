@@ -478,7 +478,7 @@ int main(int argc, char* argv[])
     init_worker(&argc, &argv);
     WorkerParams param;
     if(argc != 6){
-    	cout<<"arg1 = input path in HDFS, arg2 = number of threads, arg3 = split-time threshold, arg4 = BIGTASK_THRESHOLD"<<endl;
+    	cout<<"arg1 = input path in HDFS, arg2 = number of threads, arg3 = split-time threshold, arg4 = BIGTASK_THRESHOLD, arg5 = Split Size in expand()"<<endl;
     	return -1;
     }
     param.input_path = argv[1];  //input path in HDFS

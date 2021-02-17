@@ -390,15 +390,12 @@ public:
 
     void add_bigTask(TaskT * task)
 	{
-    	vector<TaskT *> bigTask_vec;
-		char temp_fname[1000];
+		vector<TaskT *> bigTask_vec;
 
 		TaskQueue& btq = q_bigtask();
 		bigtask_que_lock.lock();
 		//get the ref of global big task queue
 		if(btq.size() == BIG_TASK_QUEUE_CAPACITY){
-			set_bigTask_fname();
-			strcpy(temp_fname,fname);
 			int i = 0;
 			while(i < BIG_TASK_FLUSH_BATCH)
 			{
@@ -407,15 +404,14 @@ public:
 				btq.pop_back();
 				i++;
 			}
-			global_bigTask_fileList.enqueue(fname);
-			global_bigTask_file_num ++;
 		}
 		btq.push_back(task);
 		bigtask_que_lock.unlock();
 
 		if(!bigTask_vec.empty())
 		{
-			ifbinstream bigTask_out(temp_fname);
+			set_bigTask_fname();
+			ifbinstream bigTask_out(fname);
 			for (int i = 0; i < bigTask_vec.size(); i++)
 			{
 				TaskT * t = bigTask_vec[i];
@@ -425,6 +421,8 @@ public:
 				delete t;
 			}
 			bigTask_out.close();
+			global_bigTask_fileList.enqueue(fname);
+			global_bigTask_file_num ++;
 		}
 	}
 
