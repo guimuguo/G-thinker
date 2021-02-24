@@ -73,7 +73,7 @@ ifbinstream & operator<<(ifbinstream & m, const ContextValue & c)
     return m;
 }
 
-#define VNUM_ALLOWED_BEFORE_SPLIT 400000//### note for split ###: edge number is counted once for (u, v) and (v, u)
+#define VNUM_ALLOWED_BEFORE_SPLIT 200000//### note for split ###: edge number is counted once for (u, v) and (v, u)
 int SPLIT_SIZE;
 float TIME_THRESHOLD; // if running time >= TIME_THRESHOLD, split into subtasks
 
